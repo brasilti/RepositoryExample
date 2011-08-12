@@ -1,5 +1,6 @@
 package br.com.brasilti.example.features;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
@@ -7,6 +8,7 @@ import javax.inject.Inject;
 
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 
+import br.com.brasilti.example.entities.Carro;
 import br.com.brasilti.example.entities.Marca;
 import br.com.brasilti.repository.annotations.Transactional;
 import br.com.brasilti.repository.core.Keeper;
@@ -38,6 +40,21 @@ public class PersistFeature {
 		}
 
 		System.out.println("Quantidade: " + this.seeker.count(Marca.class));
+		
+		Carro gol = new Carro();
+		gol.setModelo("Gol");
+		gol.setAno(2010);
+		gol.setPreco(BigDecimal.valueOf(40000));
+		gol.setMarca(vw);
+		
+		this.keeper.persist(gol);
+		
+		List<Carro> carros = this.seeker.seekAll(Carro.class);
+		for (Carro carro : carros) {
+			System.out.println("Carro: " + carro.getModelo());
+		}
+		
+		System.out.println("Quantidade: " + this.seeker.count(Carro.class));
 	}
 
 }

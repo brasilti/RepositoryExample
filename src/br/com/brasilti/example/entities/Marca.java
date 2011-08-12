@@ -18,7 +18,7 @@ public class Marca implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Version
 	private Integer version;
 
